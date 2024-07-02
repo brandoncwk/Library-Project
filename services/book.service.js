@@ -9,7 +9,7 @@ const findManyBooks = (searchParam) => {
 }
 
 const findBookById = async (id) => {
-    const book = await Book.findBookById
+    const book = await Book.findByPk(id);
     if (!book) throw new Error("Book with specified ID does not exist")
     return book;
 }
@@ -28,7 +28,7 @@ const findBookByIdAndUpdate = async (id, body) => {
 }
 
 const findBookByIdAndDelete = async (id) => {
-    const book = await Book.findBookById(id);
+    const book = await Book.findByPk(id);
     await book.destroy();
     return book;
 }

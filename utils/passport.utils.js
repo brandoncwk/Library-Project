@@ -18,9 +18,9 @@ const initPassport = (passport) => {
         return cb(null, user.id);
     });
 
-    passport.deserializeUser((id, cb) => {
-        const user = findUserById(id);
-        return (null, user);
+    passport.deserializeUser(async (id, cb) => {
+        const user = await findUserById(id);
+        cb(null, user);
     });
 };
 

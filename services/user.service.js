@@ -9,7 +9,7 @@ const findManyUsers = (searchParam) => {
 }
 
 const findUserById = async (id) => {
-    const user = await User.findBookById
+    const user = await User.findByPk(id)
     if (!user) throw new Error("User with specified ID does not exist")
     return user;
 }
@@ -21,7 +21,7 @@ const findOneUser = (searchParam) => {
 const findUserByIdAndUpdate = async (id, body) => {
     const user = await findUserById(id);
     for (const key of Object.keys(body)) {
-        user[key] = body[key] ?? book[key]; // if body[key] is null or undefined, keep the original value
+        user[key] = body[key] ?? user[key]; // if body[key] is null or undefined, keep the original value
     }
     await user.save();
     return user;
