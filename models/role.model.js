@@ -8,6 +8,11 @@ const roleModel = (db) => {
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
         canLendBooks: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
