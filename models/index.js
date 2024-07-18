@@ -4,6 +4,7 @@ const { userModel } = require("./user.model");
 const { DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASS } = require("../config/env.config");
 const { sessionModel } = require("./session.model");
 const { roleModel } = require("./role.model");
+const { session } = require("passport");
 //const { Session } = require("express-session");
 
 const db = new Sequelize({
@@ -17,13 +18,19 @@ const db = new Sequelize({
 
 const Book = bookModel(db);
 const User = userModel(db);
-
-//User.hasOne(Session, { foreignKey: "userId"});
-//Session.belongsTo(User, { foreignKey: "userId" });
 const Session = sessionModel(db);
 const Role = roleModel(db);
+
+User.hasMany(Book, { foreignKey: "borrower" });
+Book.belongsTo(User, { foreignKey: "borrower" });
+
+User.hasOne(Session, { foreignKey: "userId"});
+Session.belongsTo(User, { foreignKey: "userId" });
+
+//const Session = sessionModel(db);
+//const Role = roleModel(db);
 
 Role.hasMany(User, { foreignKey: "roleId"});
 User.belongsTo(Role, { foreignKey: "roleId" });
 
-module.exports = { db, Book, User, Role };
+module.exports = { db, Book, User, Role, Session };

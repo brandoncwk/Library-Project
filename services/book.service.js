@@ -9,7 +9,7 @@ const findManyBooks = (searchParam) => {
 }
 
 const findBookById = async (id) => {
-    const book = await Book.findByPk(id);
+    const book = await Book.findByPk(id, {include: [User] });
     if (!book) throw new Error("Book with specified ID does not exist")
     return book;
 }
